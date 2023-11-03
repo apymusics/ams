@@ -1,0 +1,255 @@
+
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous"/>
+  <title>Edit Professor</title>
+  <link rel="icon" type="image/x-icon" href="{% static 'images/admin.png' %}">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    html, body {
+      overflow: hidden;
+      background-image: url('{% static "images/poloo.jpg" %}');
+      background-repeat: repeat; 
+    
+    }
+    .container {
+      background-color: transparent !important;
+    }
+
+    .form-group {
+      background-color:#d3ecf5 ;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding:5px;
+    }
+
+    .form-group:hover {
+      background-color: #9ce6ff ;
+      border-color: #999; 
+      color: #fff;
+    }
+
+    .form-label {
+      color: #333;
+      font-weight: bold;
+    } 
+
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: #000000;
+      background-repeat: no-repeat;
+      background-size: cover;
+      z-index: -1;
+    }
+
+    .center-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .card-registration {
+      position: relative;
+      margin: 0;
+      padding: 20px;
+      width: 600px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+      BACKGROUND-COLOR : #f6f6f6;
+    }
+
+    .card shadow-2-strong card-registration:before  {
+      z-index: -1;
+		  content: '';
+      opacity: 0.5;
+      BACKGROUND-COLOR : #000;
+    }
+
+
+
+    
+    .display-3 {
+      font-size: 3.5rem;
+    }
+
+
+    .form-label {
+      margin-left: 5px;
+    }
+
+    .rect-style{
+      position: relative;
+      
+      box-shadow: -4px 4px 0 0 darkorange;
+      padding: 15px 24px;
+    
+
+      background-color: orange;
+      outline: none;
+      border: none;
+      display: flex; /* Use flexbox for alignment */
+      align-items: center;
+      justify-content: center;
+      padding: 15px 24px;
+      font-size: 1.4rem;
+      height: 50px;
+    }
+    
+    .rect-style:active{
+    top:2px ;
+    left: -2px;
+    box-shadow: -2px 2px 0 0 darkorange;
+    }
+    
+    .rect-style::before {
+        position: absolute;
+        display: block;
+        content: "";
+        height: 0;
+        width: 0;
+        /* border width needs to be size of the element's box shadow */
+        border: solid 4px transparent;
+    
+        /* border width needs to be size of the element's box shadow */
+        border-right: solid 4px darkorange;
+    
+        /* no width for left, makes measurements easier */
+        border-left-width: 0px;
+    
+        background: none;
+        top: 0px;
+    
+        /* needs to be the same size as border width */
+        left: -4px;
+        
+      }
+      .rect-style:active::before{
+        border: 2px solid transparent;
+        border-right: 2px solid darkorange;
+        /* we can do it only with the two line obove and it work */
+        /*the line bellow show you how to make one of the border not exist 
+        like what we do with the left border*/
+        left: -2px;
+        border-left-width: 0px;  
+      }
+    
+      #rect-style::after{
+        content: "";
+        width: 0;
+        height: 0;
+        position: absolute;
+        right: 0px;
+        bottom: -4px;
+        border: 4px solid transparent;
+        border-top: 4px solid darkorange;
+    
+        border-bottom-width: 0;
+      }
+      #rect-style:active::after{
+        border: 2px solid transparent;
+        border-top: 2px solid darkorange;
+      }
+  </style>
+</head>
+
+<body>
+
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container d-flex justify-content-center align-items-center" style="height:75px">
+      <p class="display-3 text-light"><strong>Edit Professor</strong>
+      
+      
+      </p>
+    </div>
+  </nav>
+  <a role="button"  onclick="window.location.href='/../adminModule/prof'" type="button" class="btn btn-warning">back</a>
+  <div class="center-container">
+    <div class="card shadow-2-strong card-registration bg-dark" style="border-radius: 15px; box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.5); margin-top:-150px;">
+      <div class="container mt-1">
+        {% for i in c %}
+        <form method="POST" action="pedit2/{{i.cid}}">
+          {% csrf_token %}
+          <div class="form-group form-outline mb-3">
+            <label for="text" class="form-label">Professor Name:</label>
+            <select  class="form-select"  name="prof_name" >
+              
+              {% for prof,pid in pro %}
+              <option value="{{ prof }}">{{ pid }}</option>
+              {% endfor %}
+            </select>  
+          </div>
+
+          <div class="form-group  mb-3 ">
+            <label for="semester" class="form-label">Semester:</label>
+            <select id="semester" name="semester" class="form-control" required>
+              <option value="1" {% if i.semester == '1' %}selected{% endif %}>1</option>
+              <option value="2" {% if i.semester == '2' %}selected{% endif %}>2</option>
+              <option value="3" {% if i.semester == '3' %}selected{% endif %}>3</option>
+              <option value="4" {% if i.semester == '4' %}selected{% endif %}>4</option>
+              <option value="5" {% if i.semester == '5' %}selected{% endif %}>5</option>
+              <option value="6" {% if i.semester == '6' %}selected{% endif %}>6</option>
+              <option value="7" {% if i.semester == '7' %}selected{% endif %}>7</option>
+            </select>
+            <div class="valid-tooltip  mb-3">please fill</div>
+          </div>
+
+          <div class="form-group form-outline  mb-3">
+            <label for="cname" class="form-label ">Course Name:</label>
+            <input type="text" class="form-control" id="course_name" name="course_name" value="{{i.course_name}}"
+              required>
+            <div class="valid-tooltip">please fill</div>
+          </div>
+
+          <div class="container  mb-3" style="width:105%;transform:translateX(-15px);">
+            <div class="form-group">
+              <div class="row">
+                <div class="col">
+                  <label for="coursecode" class="form-label">Course Code:</label>
+                  <select id="course_code" name="course_code" class="form-control" required>
+                    <option value="AGRI" {% if i.course_code == 'AGRI' %}selected{% endif %}>AGRI</option>
+                    <option value="AIT" {% if i.course_code == 'AIT' %}selected{% endif %}>AIT</option>
+                    <option value="STAT"{% if i.course_code == 'STAT' %}selected{% endif %}>STAT</option>
+                    <option value="MATH"{% if i.course_code == 'MATH' %}selected{% endif %}>MATH</option>
+                    <option value="ENG"{% if i.course_code == 'ENG' %}selected{% endif %}>ENG</option>
+                  </select>
+                </div>
+                <div class="col">
+                  <label for="cno" class="form-label">Course Number:</label>
+                  <input type="text" class="course_number form-control" value="{{i.course_num}}" id="course_number" name="course_number"
+                    required placeholder="Enter your Course number">
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+          <!-- HTML --><div ontouchstart="">
+  
+            <div ontouchstart="">
+              <div class="button" >
+                <button type="submit" name="button" class="rect-style " id="rect-style" style="margin-left:165px;height:50px;font-weight: bold;"  onclick="return confirm('Save changes?')">Update Record</button>
+              </div>
+            </div>
+  </div>
+</div>
+         
+        </form>
+      </div>
+    </div>
+  </div>
+
+    
+    
+</body>
+
+</html>

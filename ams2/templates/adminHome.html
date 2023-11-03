@@ -1,0 +1,155 @@
+ 
+<!DOCTYPE html>
+<html>
+<head>
+  {% load static %}
+  
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" >
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}" ></script>
+  <meta charset="UTF-8">
+  <title>Admin Index </title>
+  <style>
+   
+   *{
+    margin:0;
+    padding:0;
+    font-family: 'Noto Sans', sans-serif;
+    
+   }
+   
+
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: #acd0f3;
+      
+    }
+
+   
+  
+    #btn{
+        color:white;
+        background: #00abe3;
+        box-shadow: -1px 22px 16px -5px rgba(0,0,0,0.75);
+        font-size:3em;    
+        animation:pulse 2s infinite ease-in-out alternate forwards;      
+    } 
+
+    #btn:hover{
+         
+        box-shadow: none;
+        transform:scale(0.98);
+        transition:0.2s;
+    } 
+
+    .row
+    {
+      margin-bottom:90px;
+    }
+    .col
+    {
+      margin-left:50px;
+    } 
+    .icon{
+      width: 90px;
+      height: 90px;
+      vertical-align: middle;
+      margin-right: 10px;
+     
+    }
+
+    .display-3
+    {
+      color:white;
+      font-size:6em;    
+    }
+
+    .logo
+    {
+      width: 400px;
+      height:200px;
+      margin-left:-35%
+    }
+     
+    #cc
+    {
+      margin-top:3%;
+    }
+   #main-nav{
+    height:170;
+   }
+    
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+ 
+  <div id="particles-js"></div>
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+   
+
+<!-- Nav bar start -->
+<nav class="navbar navbar-expand-lg bg-dark" id="main-nav">
+  <div class="container d-flex justify-content-center align-items-center">
+    <img src="{% static 'images/ams.png' %}" alt="AMS Logo" class="logo">
+    <p class="display-3"><strong>&nbsp;&nbsp;&nbsp;&nbsp;Admin Panel</strong></p>
+  </div>
+</nav>
+
+<!-- Nav bar over -->
+
+<!-- Main div start -->
+<div class="container" id="cc">
+  <div class="row">
+    <div class="col">
+      <a class="btn btn-lg btn-block" href="prof" id="btn">
+        <img class="icon" src="{% static 'images/pro.png' %}"  style="vertical-align: middle; margin-right: 10px;">
+        Professor</a>
+    </div>
+    <div class="col">
+      <a  class="btn btn-lg btn-block" href="stu" id="btn">
+        <img class="icon" src="{% static 'images/st.png' %}"  style="vertical-align: middle; margin-right: 10px;">
+        Student</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <a class="btn btn-lg btn-block" href="adminSettings" id="btn">
+        <img class="icon" src="{% static 'images/admin.png' %}"  style="vertical-align: middle; margin-left: -15%;">
+        Admin</a>
+    </div>
+    <div class="col">
+      <a  class="btn btn-lg btn-block" href="reports" id="btn">
+        <img class="icon" src="{% static 'images/report.png' %}"  style="vertical-align: middle; margin-left: -5%; ">
+        Report</a>
+    </div>
+  </div>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      document.addEventListener('keydown', function (event) {
+          const keyPressed = event.key.toLowerCase();
+
+          // Define your shortcuts and corresponding URLs here
+          const shortcuts = {
+              'p': 'http://127.0.0.1:8000/adminModule/prof_view',
+              's': 'http://127.0.0.1:8000/adminModule/stu',
+              'r': 'http://127.0.0.1:8000/adminModule/reports',
+              'a': 'http://127.0.0.1:8000/adminModule/adminSettings',
+              // Add more shortcuts as needed
+          };
+
+          if (shortcuts[keyPressed]) {
+              window.location.href = shortcuts[keyPressed];
+          }
+      });
+  });
+</script>
+
+<!-- main div over -->
+</body>
+</html>
